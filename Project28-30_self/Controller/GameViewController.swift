@@ -20,6 +20,7 @@ class GameViewController: UICollectionViewController {
     var currentCardSize: CGSize!
     
     var flipAnimator = FlipCardAnimator()
+    var unmatchedCardsAnimator = UnmatchedCardsAnimator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,6 +81,35 @@ class GameViewController: UICollectionViewController {
             cards.append(Card(frontImage: frontImages[i], backImage: backImage!))
         }
     }
+    
+    func unmatchedCards() {
+        guard let (firstCard, firstCell) = getFlippedCard(at: 0) else { return }
+        guard let (secondCard, secondCell) = getFlippedCard(at: 1) else { return }
+        
+        firstCard.state = .back
+        secondCard.state = .back
+        
+        unmatchedCardsAnimator.start(firstCell: firstCell, secondCell: secondCell) { [weak self] in
+            self?.resetFlippedCards()
+        }
+    }
+    
+    func getFlippedCard(at index: Int) -> (Card, CardCell)? {
+        let (position, card) = flippedCards[index]
+        
+        let indexPath = IndexPath(item: position, section: 0)
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else {
+            print("Get card error")
+            return nil
+        }
+        
+        return (card, cell)
+    }
+    
+    func resetFlippedCards() {
+        flippedCards.removeAll(keepingCapacity: true)
+    }
 }
 
 
@@ -116,8 +146,23 @@ extension GameViewController {
         
         card.state = .front
         
-        flipAnimator.flipTo(state: .back, cell: cell)
-        flippedCards.append((positon: indexPath.item, card: card))
+        if flippedCards.isEmpty {
+            flipAnimator.flipTo(state: .back, cell: cell)
+            flippedCards.append((positon: indexPath.item, card: card))
+            return
+        }
+        
+        if flippedCards.count == 1 {
+            flippedCards.append((positon: indexPath.item, card: card))
+            
+            if flippedCards[0].card.frontImage == flippedCards[1].card.frontImage {
+//                matchCards()
+                unmatchedCards()
+            } else {
+                unmatchedCards()
+            }
+            return
+        }
     }
 }
 
