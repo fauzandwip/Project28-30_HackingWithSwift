@@ -80,6 +80,10 @@ class CardCell: UICollectionViewCell {
         UIView.transition(from: from, to: to, duration: 0, options: [transition, .showHideTransitionViews])
     }
     
+    func animateMatch() {
+        transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+    }
+    
     fileprivate func getFacingSide() -> CardState {
         if back.isHidden {
             return .front

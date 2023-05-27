@@ -21,7 +21,8 @@ class GameViewController: UICollectionViewController {
     
     var flipAnimator = FlipCardAnimator()
     var unmatchedCardsAnimator = UnmatchedCardsAnimator()
-
+    var matchedCardsAnimators = [MatchedCardsAnimator]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,6 +80,22 @@ class GameViewController: UICollectionViewController {
         
         for i in 0..<frontImages.count {
             cards.append(Card(frontImage: frontImages[i], backImage: backImage!))
+        }
+    }
+    
+    func matchedCards() {
+        guard let (firstCard, firstCell) = getFlippedCard(at: 0) else { return }
+        guard let (secondCard, secondCell) = getFlippedCard(at: 1) else { return }
+        
+        firstCard.state = .matched
+        secondCard.state = .matched
+        
+        let animator = MatchedCardsAnimator()
+        matchedCardsAnimators.append(animator)
+        
+        animator.start(firstCell: firstCell, secondCell: secondCell) { [weak self] in
+            self?.matchedCardsAnimators.removeAll(where: { $0 === animator })
+            self?.resetFlippedCards()
         }
     }
     
@@ -156,8 +173,7 @@ extension GameViewController {
             flippedCards.append((positon: indexPath.item, card: card))
             
             if flippedCards[0].card.frontImage == flippedCards[1].card.frontImage {
-//                matchCards()
-                unmatchedCards()
+                matchedCards()
             } else {
                 unmatchedCards()
             }
