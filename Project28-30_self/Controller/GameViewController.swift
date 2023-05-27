@@ -10,18 +10,21 @@ import UIKit
 class GameViewController: UICollectionViewController {
     
     var cards = [Card]()
+    var cardSize: CardSize!
     
     var cardsDirectory = "Cards.bundle/"
     var currentCards = "Blocks"
     
+    var currentCardSize: CGSize!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Match Pairs"
         
+        cardSize = CardSize(imageSize: CGSize(width: 50, height: 50), gridSide1: 3, gridSide2: 4)
+        
         loadCards()
-        collectionView.reloadData()
     }
     
     func loadCards() {
@@ -39,6 +42,8 @@ class GameViewController: UICollectionViewController {
         }
         
         guard backImage != nil else { fatalError("No back image found") }
+        guard let size = UIImage(named: backImage!)?.size else { fatalError("Can't get image size") }
+        cardSize.imageSize = size
         
         let cardsNumber = 3 * 4
         
@@ -73,10 +78,23 @@ extension GameViewController {
         
         guard let cell = dequeuedcell as? CardCell else { return dequeuedcell }
         cell.set(card: cards[indexPath.item])
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.borderWidth = 1
+//        cell.layer.borderColor = UIColor.black.cgColor
+//        cell.layer.borderWidth = 1
         
         return cell
+    }
+}
+
+
+// MARK: - UICollectionViewDelegateFlowLayout
+
+extension GameViewController: UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        currentCardSize = cardSize.getCardSize(collectionView: collectionView)
+        
+        return currentCardSize
     }
 }
 

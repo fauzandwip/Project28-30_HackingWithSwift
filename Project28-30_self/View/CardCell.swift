@@ -23,22 +23,33 @@ class CardCell: UICollectionViewCell {
         self.card = card
         front.image = UIImage(named: card.frontImage)
         back.image = UIImage(named: card.backImage)
+//        print("set")
         
+        updateImageSize()
     }
     
     fileprivate func build() {
         let sizeWidth = frame.size.width
         let sizeHeight = frame.size.height
+//        print("build")
         
         front = UIImageView(frame: CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight))
         front.contentMode = .scaleAspectFit
-//        front.isHidden = true
+        front.isHidden = true
         
         back = UIImageView(frame: CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight))
         back.contentMode = .scaleAspectFit
-        back.isHidden = true
+//        back.isHidden = true
         
         addSubview(front)
         addSubview(back)
+    }
+    
+    func updateImageSize() {
+        let sizeWidth = frame.size.width
+        let sizeHeight = frame.size.height
+        
+        front.frame = CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight)
+        back.frame = CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight)
     }
 }
