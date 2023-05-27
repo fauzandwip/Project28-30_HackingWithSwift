@@ -20,6 +20,7 @@
 		7B7AA4342A21D3ED00D15C2B /* FlipCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */; };
 		7B7AA4372A21EB1F00D15C2B /* UnmatchedCardsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA4362A21EB1F00D15C2B /* UnmatchedCardsAnimator.swift */; };
 		7B7AA4392A21F6B800D15C2B /* MatchedCardsAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA4382A21F6B800D15C2B /* MatchedCardsAnimator.swift */; };
+		7B7AA43B2A22062600D15C2B /* CompletionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA43A2A22062600D15C2B /* CompletionAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCardAnimator.swift; sourceTree = "<group>"; };
 		7B7AA4362A21EB1F00D15C2B /* UnmatchedCardsAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnmatchedCardsAnimator.swift; sourceTree = "<group>"; };
 		7B7AA4382A21F6B800D15C2B /* MatchedCardsAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchedCardsAnimator.swift; sourceTree = "<group>"; };
+		7B7AA43A2A22062600D15C2B /* CompletionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			children = (
 				7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */,
 				7B7AA4362A21EB1F00D15C2B /* UnmatchedCardsAnimator.swift */,
+				7B7AA43A2A22062600D15C2B /* CompletionAnimator.swift */,
 				7B7AA4382A21F6B800D15C2B /* MatchedCardsAnimator.swift */,
 			);
 			path = Animation;
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B7AA43B2A22062600D15C2B /* CompletionAnimator.swift in Sources */,
 				7B7AA4372A21EB1F00D15C2B /* UnmatchedCardsAnimator.swift in Sources */,
 				7B7AA4322A21C3A200D15C2B /* CardSize.swift in Sources */,
 				7B7AA4392A21F6B800D15C2B /* MatchedCardsAnimator.swift in Sources */,

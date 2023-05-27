@@ -20,6 +20,22 @@ class UnmatchedCardsAnimator {
         flipToFront(firstCell: firstCell, secondCell: secondCell, completion: completion)
     }
     
+    func cancel() {
+        waiter?.cancel()
+        waiter = nil
+        
+        flipToFrontAnimator?.stopAnimation(true)
+        flipToFrontAnimator = nil
+        
+        flipToBackAnimator?.stopAnimation(true)
+        flipToBackAnimator = nil
+    }
+    
+    func forceFlipToBack(firstCell: CardCell, secondCell: CardCell) {
+        cancel()
+        flipToBack(firstCell: firstCell, secondCell: secondCell)
+    }
+    
     private func flipToFront(firstCell: CardCell, secondCell: CardCell, completion: (() -> ())? = nil) {
         flipToFrontAnimator = UIViewPropertyAnimator(duration: UnmatchedCardsAnimator.flipDuration, timingParameters: UICubicTimingParameters())
         

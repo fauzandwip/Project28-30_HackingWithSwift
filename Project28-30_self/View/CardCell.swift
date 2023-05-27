@@ -84,6 +84,10 @@ class CardCell: UICollectionViewCell {
         transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
     }
     
+    func animateCompleteGame() {
+        transform = CGAffineTransform(scaleX: 1, y: 1)
+    }
+    
     fileprivate func getFacingSide() -> CardState {
         if back.isHidden {
             return .front

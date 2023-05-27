@@ -22,6 +22,7 @@ class GameViewController: UICollectionViewController {
     var flipAnimator = FlipCardAnimator()
     var unmatchedCardsAnimator = UnmatchedCardsAnimator()
     var matchedCardsAnimators = [MatchedCardsAnimator]()
+    var completionAnimator = CompletionAnimator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +96,26 @@ class GameViewController: UICollectionViewController {
         
         animator.start(firstCell: firstCell, secondCell: secondCell) { [weak self] in
             self?.matchedCardsAnimators.removeAll(where: { $0 === animator })
-            self?.resetFlippedCards()
+            self?.checkCompletion()
         }
+        
+        resetFlippedCards()
+    }
+    
+    func checkCompletion() {
+        guard matchedCardsAnimators.isEmpty else { return }
+        
+        for card in cards {
+            if card.state != .matched && card.state != .complete {
+                return
+            }
+        }
+        
+        for card in cards {
+            card.state = .complete
+        }
+        
+        completionAnimator.start(cards: cards, collectionView: collectionView)
     }
     
     func unmatchedCards() {
@@ -109,6 +128,15 @@ class GameViewController: UICollectionViewController {
         unmatchedCardsAnimator.start(firstCell: firstCell, secondCell: secondCell) { [weak self] in
             self?.resetFlippedCards()
         }
+    }
+    
+    func forceFinishUnmatchedCards() {
+        guard let (_, firstCell) = getFlippedCard(at: 0) else { return }
+        guard let (_, secondCell) = getFlippedCard(at: 1) else { return }
+        
+        unmatchedCardsAnimator.forceFlipToBack(firstCell: firstCell, secondCell: secondCell)
+        
+        resetFlippedCards()
     }
     
     func getFlippedCard(at index: Int) -> (Card, CardCell)? {
@@ -177,6 +205,19 @@ extension GameViewController {
             } else {
                 unmatchedCards()
             }
+            return
+        }
+        
+        if flippedCards.count == 2 {
+            if flippedCards[0].positon == indexPath.row || flippedCards[1].positon == indexPath.row {
+                cards[indexPath.row].state = .back
+                forceFinishUnmatchedCards()
+                return
+            }
+            
+            flipAnimator.flipTo(state: .front, cell: cell)
+            forceFinishUnmatchedCards()
+            flippedCards.append((positon: indexPath.row, card: card))
             return
         }
     }
