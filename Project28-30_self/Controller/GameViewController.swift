@@ -10,12 +10,16 @@ import UIKit
 class GameViewController: UICollectionViewController {
     
     var cards = [Card]()
+    var flippedCards = [(positon: Int, card: Card)]()
+
     var cardSize: CardSize!
     
     var cardsDirectory = "Cards.bundle/"
     var currentCards = "Blocks"
     
     var currentCardSize: CGSize!
+    
+    var flipAnimator = FlipCardAnimator()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +29,20 @@ class GameViewController: UICollectionViewController {
         cardSize = CardSize(imageSize: CGSize(width: 50, height: 50), gridSide1: 3, gridSide2: 4)
         
         loadCards()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        updateCardSize()
+    }
+    
+    func updateCardSize() {
+        collectionView.collectionViewLayout.invalidateLayout()
+        
+        for cell in collectionView.visibleCells {
+            if let cell = cell as? CardCell {
+                cell.updateAfterRotate()
+            }
+        }
     }
     
     func loadCards() {
@@ -82,6 +100,24 @@ extension GameViewController {
 //        cell.layer.borderWidth = 1
         
         return cell
+    }
+}
+
+
+// MARK: - UICollectionViewDelegate
+
+extension GameViewController {
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CardCell else { return }
+        
+        let card = cards[indexPath.item]
+        guard card.state == .back else { return }
+        
+        card.state = .front
+        
+        flipAnimator.flipTo(state: .back, cell: cell)
+        flippedCards.append((positon: indexPath.item, card: card))
     }
 }
 

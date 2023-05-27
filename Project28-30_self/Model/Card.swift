@@ -7,7 +7,15 @@
 
 import Foundation
 
+enum CardState {
+    case front
+    case back
+    case matched
+    case complete
+}
+
 class Card {
+    var state: CardState = .back
     
     var frontImage: String
     var backImage: String

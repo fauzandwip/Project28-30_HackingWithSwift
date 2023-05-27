@@ -17,6 +17,7 @@
 		7B7AA42D2A21AB9200D15C2B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA42C2A21AB9200D15C2B /* Card.swift */; };
 		7B7AA4302A21B11000D15C2B /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA42F2A21B11000D15C2B /* CardCell.swift */; };
 		7B7AA4322A21C3A200D15C2B /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA4312A21C3A200D15C2B /* CardSize.swift */; };
+		7B7AA4342A21D3ED00D15C2B /* FlipCardAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		7B7AA42C2A21AB9200D15C2B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		7B7AA42F2A21B11000D15C2B /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
 		7B7AA4312A21C3A200D15C2B /* CardSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
+		7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipCardAnimator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		7B7AA42B2A21AAC100D15C2B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B7AA4352A21D4B800D15C2B /* Animation */,
 				7B7AA4192A21A9B600D15C2B /* Main.storyboard */,
 				7B7AA42F2A21B11000D15C2B /* CardCell.swift */,
 				7B7AA4312A21C3A200D15C2B /* CardSize.swift */,
@@ -109,6 +112,14 @@
 				7B7AA42C2A21AB9200D15C2B /* Card.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7B7AA4352A21D4B800D15C2B /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				7B7AA4332A21D3ED00D15C2B /* FlipCardAnimator.swift */,
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +196,7 @@
 			files = (
 				7B7AA4322A21C3A200D15C2B /* CardSize.swift in Sources */,
 				7B7AA4302A21B11000D15C2B /* CardCell.swift in Sources */,
+				7B7AA4342A21D3ED00D15C2B /* FlipCardAnimator.swift in Sources */,
 				7B7AA4182A21A9B600D15C2B /* GameViewController.swift in Sources */,
 				7B7AA4142A21A9B600D15C2B /* AppDelegate.swift in Sources */,
 				7B7AA4162A21A9B600D15C2B /* SceneDelegate.swift in Sources */,

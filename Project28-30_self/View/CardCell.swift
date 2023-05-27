@@ -52,4 +52,39 @@ class CardCell: UICollectionViewCell {
         front.frame = CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight)
         back.frame = CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight)
     }
+    
+    func updateAfterRotate() {
+        DispatchQueue.main.async { [weak self] in
+            self?.updateImageSize()
+        }
+    }
+    
+    func animateFlipTo(state: CardState) {
+        guard state == .front || state == .back else { fatalError("Can only flip to front or back") }
+        
+        let from: UIView, to: UIView
+        let transition: AnimationOptions
+        
+        if state == .front {
+            guard getFacingSide() == .back else { return }
+            from = back
+            to = front
+            transition = .transitionFlipFromRight
+        } else {
+            guard getFacingSide() == .front else { return }
+            from = front
+            to = back
+            transition = .transitionFlipFromLeft
+        }
+        
+        UIView.transition(from: from, to: to, duration: 0, options: [transition, .showHideTransitionViews])
+    }
+    
+    fileprivate func getFacingSide() -> CardState {
+        if back.isHidden {
+            return .front
+        }
+        
+        return .back
+    }
 }
