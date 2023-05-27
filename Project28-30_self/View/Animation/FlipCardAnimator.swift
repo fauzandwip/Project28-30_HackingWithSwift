@@ -12,6 +12,11 @@ class FlipCardAnimator {
     
     var flipAnimator: UIViewPropertyAnimator?
     
+    func cancel() {
+        flipAnimator?.stopAnimation(true)
+        flipAnimator = nil
+    }
+    
     func flipTo(state: CardState, cell: CardCell) {
         flipAnimator = UIViewPropertyAnimator(duration: FlipCardAnimator.flipDuration, curve: .linear)
         

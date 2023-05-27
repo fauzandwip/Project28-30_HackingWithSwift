@@ -12,11 +12,19 @@ class CompletionAnimator {
     static let betweenCardsDelay = 0.05
     static let completeDuration = 1.0
     
-    var animators: [UIViewPropertyAnimator]?
+    var animators = [UIViewPropertyAnimator]()
     var worker: DispatchWorkItem?
     
     func start(cards: [Card], collectionView: UICollectionView, completion: (() -> ())? = nil) {
         complete(cards: cards, collectionView: collectionView)
+    }
+    
+    func cancel() {
+        worker?.cancel()
+        
+        for animator in animators {
+            animator.stopAnimation(true)
+        }
     }
     
     func complete(cards: [Card], collectionView: UICollectionView, completion: (() -> ())? = nil) {
@@ -38,10 +46,10 @@ class CompletionAnimator {
                 }
                 
                 animator.addCompletion { [weak self] _ in
-                    self?.animators?.removeAll(where: { $0 === animator })
+                    self?.animators.removeAll(where: { $0 === animator })
                 }
                 
-                self?.animators?.append(animator)
+                self?.animators.append(animator)
                 
                 animator.startAnimation(afterDelay: delay)
                 

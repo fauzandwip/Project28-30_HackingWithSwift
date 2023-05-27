@@ -19,6 +19,14 @@ class MatchedCardsAnimator {
         flipToFront(firstCell: firstCell, secondCell: secondCell, completion: completion)
     }
     
+    func cancel() {
+        flipToFrontAnimator?.stopAnimation(true)
+        flipToFrontAnimator = nil
+        
+        matchAnimator?.stopAnimation(true)
+        matchAnimator = nil
+    }
+    
     private func flipToFront(firstCell: CardCell, secondCell: CardCell, completion: (() -> ())? = nil) {
         flipToFrontAnimator = UIViewPropertyAnimator(duration: MatchedCardsAnimator.flipDuration, curve: .linear)
         

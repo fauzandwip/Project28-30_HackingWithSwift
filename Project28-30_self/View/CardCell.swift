@@ -23,15 +23,13 @@ class CardCell: UICollectionViewCell {
         self.card = card
         front.image = UIImage(named: card.frontImage)
         back.image = UIImage(named: card.backImage)
-//        print("set")
         
-        updateImageSize()
+        reset(state: card.state)
     }
     
     fileprivate func build() {
         let sizeWidth = frame.size.width
         let sizeHeight = frame.size.height
-//        print("build")
         
         front = UIImageView(frame: CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight))
         front.contentMode = .scaleAspectFit
@@ -43,6 +41,35 @@ class CardCell: UICollectionViewCell {
         
         addSubview(front)
         addSubview(back)
+    }
+    
+    fileprivate func reset(state: CardState) {
+        cancelAnimations()
+        
+        var flipTarget: CardState
+        var scaleFactor: CGFloat
+        
+        updateImageSize()
+        
+        switch state {
+        case .back:
+            flipTarget = .back
+            scaleFactor = 1
+        case .front:
+            flipTarget = .front
+            scaleFactor = 1
+        case .matched:
+            flipTarget = .front
+            scaleFactor = 1
+        case .complete:
+            flipTarget = .front
+            scaleFactor = 1
+        }
+        
+        animateFlipTo(state: flipTarget)
+        DispatchQueue.main.async { [weak self] in
+            self?.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+        }
     }
     
     func updateImageSize() {
@@ -86,6 +113,12 @@ class CardCell: UICollectionViewCell {
     
     func animateCompleteGame() {
         transform = CGAffineTransform(scaleX: 1, y: 1)
+    }
+    
+    fileprivate func cancelAnimations() {
+        layer.removeAllAnimations()
+        front.layer.removeAllAnimations()
+        back.layer.removeAllAnimations()
     }
     
     fileprivate func getFacingSide() -> CardState {

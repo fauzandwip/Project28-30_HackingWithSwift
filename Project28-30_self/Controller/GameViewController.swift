@@ -29,6 +29,8 @@ class GameViewController: UICollectionViewController {
         
         title = "Match Pairs"
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .done, target: self, action: #selector(newGame))
+        
         cardSize = CardSize(imageSize: CGSize(width: 50, height: 50), gridSide1: 3, gridSide2: 4)
         
         loadCards()
@@ -46,6 +48,25 @@ class GameViewController: UICollectionViewController {
                 cell.updateAfterRotate()
             }
         }
+    }
+    
+    @objc func newGame() {
+        cards = [Card]()
+        resetFlippedCards()
+        cancelAnimators()
+        
+        loadCards()
+        collectionView.reloadData()
+    }
+    
+    func cancelAnimators() {
+        flipAnimator.cancel()
+        unmatchedCardsAnimator.cancel()
+        for animator in matchedCardsAnimators {
+            animator.cancel()
+        }
+        matchedCardsAnimators.removeAll()
+        completionAnimator.cancel()
     }
     
     func loadCards() {
