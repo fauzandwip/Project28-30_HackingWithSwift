@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        title = "Match Pairs"
     }
 
 
