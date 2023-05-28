@@ -20,7 +20,7 @@ class CardSize {
     }
     
     
-    // MARK: - from clarknt logic, i'am still learn this logic
+    // MARK: - from clarknt logic, i still learn this logic
     
     func getCardSize(collectionView: UICollectionView) -> CGSize {
         let width = collectionView.frame.size.width

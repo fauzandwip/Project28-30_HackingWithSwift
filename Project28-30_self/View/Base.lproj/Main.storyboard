@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -42,6 +43,83 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kz4-sS-1VZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1246.5648854961833" y="-7.042253521126761"/>
+        </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="g6D-eB-AXL">
+            <objects>
+                <viewController storyboardIdentifier="SettingsViewController" id="ZVR-G5-fmr" customClass="SettingsViewController" customModule="Project28_30_self" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="u3a-Bs-vXQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cards" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqG-It-lRr">
+                                <rect key="frame" x="16" y="69" width="361" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Ua-PR-Tk8" userLabel="Cards Table">
+                                <rect key="frame" x="0.0" y="108" width="393" height="273.66666666666669"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardsCell" id="KdB-gT-MTh">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="KdB-gT-MTh" id="zXe-I2-qrz">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nJW-sV-PYM" userLabel="Grid Size Table">
+                                <rect key="frame" x="0.0" y="450.66666666666674" width="393" height="367.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="GridCell" id="bxr-Sq-7BQ">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bxr-Sq-7BQ" id="Hab-Zz-JyF">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Grid Size" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gma-zz-gtK">
+                                <rect key="frame" x="16" y="411.66666666666669" width="361" height="29"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="cCy-Gh-1Ec"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="nJW-sV-PYM" firstAttribute="bottom" secondItem="cCy-Gh-1Ec" secondAttribute="bottom" id="6Uh-ki-A9k"/>
+                            <constraint firstItem="gma-zz-gtK" firstAttribute="top" secondItem="4Ua-PR-Tk8" secondAttribute="bottom" constant="30" id="8m7-IH-aDQ"/>
+                            <constraint firstItem="gma-zz-gtK" firstAttribute="leading" secondItem="cCy-Gh-1Ec" secondAttribute="leading" constant="16" id="EiA-Or-fg1"/>
+                            <constraint firstItem="nJW-sV-PYM" firstAttribute="top" secondItem="gma-zz-gtK" secondAttribute="bottom" constant="10" id="PST-wv-CDo"/>
+                            <constraint firstItem="cCy-Gh-1Ec" firstAttribute="trailing" secondItem="gma-zz-gtK" secondAttribute="trailing" constant="16" id="Saj-Jl-YPe"/>
+                            <constraint firstItem="gma-zz-gtK" firstAttribute="centerY" secondItem="u3a-Bs-vXQ" secondAttribute="centerY" id="VfG-ux-Voj"/>
+                            <constraint firstItem="nJW-sV-PYM" firstAttribute="trailing" secondItem="cCy-Gh-1Ec" secondAttribute="trailing" id="ZWO-zr-MbN"/>
+                            <constraint firstItem="nJW-sV-PYM" firstAttribute="leading" secondItem="cCy-Gh-1Ec" secondAttribute="leading" id="ZhD-As-2j8"/>
+                            <constraint firstItem="4Ua-PR-Tk8" firstAttribute="trailing" secondItem="cCy-Gh-1Ec" secondAttribute="trailing" id="aoE-ir-Q2S"/>
+                            <constraint firstItem="4Ua-PR-Tk8" firstAttribute="top" secondItem="pqG-It-lRr" secondAttribute="bottom" constant="10" id="drs-Tn-AXw"/>
+                            <constraint firstItem="pqG-It-lRr" firstAttribute="top" secondItem="cCy-Gh-1Ec" secondAttribute="top" constant="10" id="idR-QT-vWL"/>
+                            <constraint firstItem="pqG-It-lRr" firstAttribute="leading" secondItem="cCy-Gh-1Ec" secondAttribute="leading" constant="16" id="q0h-0t-kk8"/>
+                            <constraint firstAttribute="trailing" secondItem="pqG-It-lRr" secondAttribute="trailing" constant="16" id="z7d-HN-aF9"/>
+                            <constraint firstItem="4Ua-PR-Tk8" firstAttribute="leading" secondItem="cCy-Gh-1Ec" secondAttribute="leading" id="z89-Ez-BBf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cardsTable" destination="4Ua-PR-Tk8" id="KuX-F0-jdh"/>
+                        <outlet property="gridSizeTable" destination="nJW-sV-PYM" id="alm-fQ-D3B"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oVh-r9-kHV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2136.6412213740459" y="-7.042253521126761"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="VZF-Wu-esY">

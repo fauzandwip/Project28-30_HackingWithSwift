@@ -14,9 +14,13 @@ class GameViewController: UICollectionViewController {
 
     var cardSize: CardSize!
     
+    var currentGrid = 4
+    var currentGridElement = 1
+    
     var cardsDirectory = "Cards.bundle/"
     var currentCards = "Blocks"
     
+    var currentCardSizeValid = false
     var currentCardSize: CGSize!
     
     var flipAnimator = FlipCardAnimator()
@@ -30,33 +34,60 @@ class GameViewController: UICollectionViewController {
         title = "Match Pairs"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "New Game", style: .done, target: self, action: #selector(newGame))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Settings", style: .done, target: self, action: #selector(settingsTapped))
         
-        cardSize = CardSize(imageSize: CGSize(width: 50, height: 50), gridSide1: 3, gridSide2: 4)
+        let (gridSide1, gridSide2) = grids[currentGrid].combinations[currentGridElement]
+        cardSize = CardSize(imageSize: CGSize(width: 50, height: 50), gridSide1: gridSide1, gridSide2: gridSide2)
         
-        loadCards()
+        newGame()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateCardSize()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateCardSize()
     }
     
     func updateCardSize() {
+        currentCardSizeValid = false
         collectionView.collectionViewLayout.invalidateLayout()
         
         for cell in collectionView.visibleCells {
             if let cell = cell as? CardCell {
-                cell.updateAfterRotate()
+                cell.updateAfterRotateOrResize()
             }
         }
     }
     
     @objc func newGame() {
+        let (gridSide1, gridSide2) = grids[currentGrid].combinations[currentGridElement]
+        
+        guard (gridSide1 * gridSide2) % 2 == 0 else {
+            fatalError("Odd number of cards")
+        }
+        
+        cardSize.gridSide1 = gridSide1
+        cardSize.gridSide2 = gridSide2
+        
         cards = [Card]()
         resetFlippedCards()
         cancelAnimators()
         
         loadCards()
+        currentCardSizeValid = false
         collectionView.reloadData()
+    }
+    
+    @objc func settingsTapped() {
+        if let settingsVC = storyboard?.instantiateViewController(withIdentifier: "SettingsViewController") as? SettingsViewController {
+            settingsVC.setParameters(currentCards: currentCards, currentGrid: currentGrid, currentGridElement: currentGridElement)
+            settingsVC.delegate = self
+            navigationController?.pushViewController(settingsVC, animated: true)
+        }
     }
     
     func cancelAnimators() {
@@ -87,7 +118,8 @@ class GameViewController: UICollectionViewController {
         guard let size = UIImage(named: backImage!)?.size else { fatalError("Can't get image size") }
         cardSize.imageSize = size
         
-        let cardsNumber = 3 * 4
+        let (gridSide1, gridSide2) = grids[currentGrid].combinations[currentGridElement]
+        let cardsNumber = gridSide1 * gridSide2
         
         while frontImages.count > cardsNumber / 2 {
             frontImages.remove(at: Int.random(in: 0..<frontImages.count))
@@ -250,10 +282,31 @@ extension GameViewController {
 extension GameViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
+        if currentCardSizeValid {
+            return currentCardSize
+        }
+        
         currentCardSize = cardSize.getCardSize(collectionView: collectionView)
+        currentCardSizeValid = true
         
         return currentCardSize
+    }
+}
+
+
+// MARK: - SettingsDelegate
+
+extension GameViewController: SettingsDelegate {
+    func settings(_ settings: SettingsViewController, didUpdateCards cardsName: String) {
+        currentCards = cardsName
+        newGame()
+    }
+    
+    func settings(_ settings: SettingsViewController, didUpdateGrid grid: Int, didUpdateGridElement gridElement: Int) {
+        currentGrid = grid
+        currentGridElement = gridElement
+        newGame()
     }
 }
 

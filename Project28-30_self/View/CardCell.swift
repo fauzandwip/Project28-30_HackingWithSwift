@@ -80,9 +80,15 @@ class CardCell: UICollectionViewCell {
         back.frame = CGRect(x: 0, y: 0, width: sizeWidth, height: sizeHeight)
     }
     
-    func updateAfterRotate() {
+    func updateAfterRotateOrResize() {
         DispatchQueue.main.async { [weak self] in
             self?.updateImageSize()
+        }
+        
+        if card?.state == .matched {
+            DispatchQueue.main.async { [weak self] in
+                self?.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
+            }
         }
     }
     
